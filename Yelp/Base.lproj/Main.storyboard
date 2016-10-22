@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LOs-SX-1zH" id="Pqa-bB-fQI">
-                                            <frame key="frameInset" width="375" height="119"/>
+                                            <frame key="frameInset" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gqp-yJ-mf6">
@@ -35,13 +35,16 @@
                                                         <constraint firstAttribute="height" constant="70" id="lcY-H2-dBa"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1. Grand Pu Bah" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yah-nM-0lH">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1. Grand Pu Bah" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yah-nM-0lH">
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88 Divisino St, Mission Bay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euH-au-u5s">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88 Divisino St, Mission Bay" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euH-au-u5s">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="281" id="z9Y-cS-hq8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -79,6 +82,7 @@
                                                 <constraint firstItem="2Ak-gV-FDD" firstAttribute="centerY" secondItem="Ua2-gX-ifb" secondAttribute="centerY" id="ME7-v3-XFG"/>
                                                 <constraint firstItem="Yah-nM-0lH" firstAttribute="top" secondItem="Pqa-bB-fQI" secondAttribute="top" constant="8" id="Nwg-Vq-KvW"/>
                                                 <constraint firstItem="euH-au-u5s" firstAttribute="leading" secondItem="Gqp-yJ-mf6" secondAttribute="trailing" constant="8" id="O8c-Km-1Hh"/>
+                                                <constraint firstItem="2Ak-gV-FDD" firstAttribute="trailing" secondItem="WmR-Gb-bLi" secondAttribute="trailing" id="OT7-kK-x6e"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="zwz-zm-V4T" secondAttribute="bottom" constant="12" id="PMz-Pb-UYy"/>
                                                 <constraint firstItem="e2p-7B-cOI" firstAttribute="top" secondItem="Yah-nM-0lH" secondAttribute="bottom" constant="3" id="Qic-xm-brJ"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Gqp-yJ-mf6" secondAttribute="bottom" constant="12" id="RGF-X2-16d"/>
@@ -89,7 +93,6 @@
                                                 <constraint firstItem="zwz-zm-V4T" firstAttribute="top" secondItem="euH-au-u5s" secondAttribute="bottom" constant="3" id="jwI-eI-wgU"/>
                                                 <constraint firstItem="e2p-7B-cOI" firstAttribute="leading" secondItem="Gqp-yJ-mf6" secondAttribute="trailing" constant="8" id="ojh-LX-i9M"/>
                                                 <constraint firstItem="WmR-Gb-bLi" firstAttribute="leading" secondItem="Yah-nM-0lH" secondAttribute="trailing" constant="8" id="rc6-QI-fPf"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="2Ak-gV-FDD" secondAttribute="trailing" constant="8" id="swf-a5-lGD"/>
                                                 <constraint firstAttribute="trailing" secondItem="WmR-Gb-bLi" secondAttribute="trailing" constant="8" id="ydB-4c-9bj"/>
                                                 <constraint firstItem="Ua2-gX-ifb" firstAttribute="centerY" secondItem="e2p-7B-cOI" secondAttribute="centerY" id="zEM-f3-r8D"/>
                                             </constraints>
@@ -133,7 +136,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Gw-sE-FEw" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="0t2-YZ-hES">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0t2-YZ-hES">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
