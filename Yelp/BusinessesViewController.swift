@@ -30,15 +30,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                     print(business.address!)
                 }
             }
-            
-            }
-        )
+        })
 
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,7 +60,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
-        var categories = filters["categories"] as? [String]
+        let categories = filters["categories"] as? [String]
         
         Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, completion: {
             (businesses: [Business]?, error: Error?) -> Void in
