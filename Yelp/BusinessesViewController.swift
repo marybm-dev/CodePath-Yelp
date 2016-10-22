@@ -8,10 +8,14 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
+    var searchBar: UISearchBar!
+    
+    var searchActive = false
+    var searchedBusinesses = [Business]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +36,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         })
 
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
+        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,7 +55,12 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "businessCell", for: indexPath) as! BusinessCell
         
-        cell.business = businesses[indexPath.row]
+        if searchActive {
+            cell.business = searchedBusinesses[indexPath.row]
+        }
+        else {
+            cell.business = businesses[indexPath.row]
+        }
         
         return cell
     }
@@ -71,4 +85,44 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         })
         
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        searchedBusinesses = businesses.filter({ (business) -> Bool in
+            var temp = NSString()
+            
+            if let name = business.name {
+                temp = name as NSString
+                
+            }
+            let range = temp.range(of: searchText, options: .caseInsensitive)
+            return range.location != NSNotFound
+        })
+        
+        if searchedBusinesses.count == 0 {
+            searchActive = false
+        }
+        else {
+            searchActive = true
+        }
+        self.tableView.reloadData()
+    }
+    
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+
 }
