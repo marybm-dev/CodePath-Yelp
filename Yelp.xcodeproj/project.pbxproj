@@ -103,9 +103,7 @@
 				22AAAA9A1AEA0AA100A544AF /* Models */,
 				222D8A7A19CCFAAA00D2DB53 /* API */,
 				22AAAA9D1AEA1EC600A544AF /* View Controllers */,
-				5E3707531DBBE3240081A30E /* BusinessCell.swift */,
-				5ED03C201DBBFE2000A1ECDE /* SwitchCell.swift */,
-				5ED03C221DBBFE8000A1ECDE /* FiltersViewController.swift */,
+				5ED03C241DBC0CF700A1ECDE /* TableView Cells */,
 				222D8A5A19CCF9F900D2DB53 /* AppDelegate.swift */,
 				222D8A5E19CCF9F900D2DB53 /* Main.storyboard */,
 				222D8A6119CCF9F900D2DB53 /* Images.xcassets */,
@@ -160,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */,
+				5ED03C221DBBFE8000A1ECDE /* FiltersViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -172,6 +171,15 @@
 				0A1000F3975EB43318C1D4FA /* Pods_YelpTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5ED03C241DBC0CF700A1ECDE /* TableView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5E3707531DBBE3240081A30E /* BusinessCell.swift */,
+				5ED03C201DBBFE2000A1ECDE /* SwitchCell.swift */,
+			);
+			name = "TableView Cells";
 			sourceTree = "<group>";
 		};
 		F64653F46DB3B45A24B65CDD /* Pods */ = {
