@@ -45,10 +45,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if businesses != nil {
+        if searchActive && searchedBusinesses.count > 0 {
+            return searchedBusinesses.count
+        }
+        else if !searchActive && businesses != nil {
             return businesses!.count
         }
-        
+
         return 0
     }
     
