@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LOs-SX-1zH" id="Pqa-bB-fQI">
-                                            <frame key="frameInset" width="375" height="119.5"/>
+                                            <frame key="frameInset" width="375" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gqp-yJ-mf6">
@@ -123,9 +123,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Yelp" id="hYs-mC-neH">
-                        <barButtonItem key="leftBarButtonItem" title="Filters" id="t3j-Da-Qpz">
+                        <barButtonItem key="rightBarButtonItem" image="filter" id="sNM-7Z-qDQ">
                             <connections>
-                                <segue destination="d5G-3Q-8Go" kind="presentation" id="tsh-rt-OAR"/>
+                                <segue destination="d5G-3Q-8Go" kind="presentation" id="IfV-Yr-cEu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -240,7 +240,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d5G-3Q-8Go" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ohi-tY-Fp1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ohi-tY-Fp1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -258,5 +258,8 @@
             <point key="canvasLocation" x="3405.5999999999999" y="357.57121439280365"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+    <resources>
+        <image name="filter" width="20" height="20"/>
+    </resources>
+    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
