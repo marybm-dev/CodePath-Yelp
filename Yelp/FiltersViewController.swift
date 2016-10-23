@@ -30,6 +30,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var distances: [String:RadiusFilter]!
     var distnacesKeys: [String]!
     
+    var sorts: [String]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,6 +40,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         categories = yelpCategories()
         distances = yelpDistances()
         distnacesKeys = Array(self.distances.keys)
+        
+        sorts = ["Best Match, Distance, Rating"]
     }
     
     @IBAction func onCancelButton(_ sender: AnyObject) {
@@ -73,6 +77,24 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 10
+        }
+        else if section == 1 {
+            return 25
+        }
+        else if section == 2 {
+            return 25
+        }
+        else if section == 3 {
+            return 25
+        }
+        else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
