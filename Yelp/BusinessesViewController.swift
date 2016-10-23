@@ -17,6 +17,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var searchActive = false
     var searchedBusinesses = [Business]()
     
+    var logoButton: UIButton!
+    var barButtonItem: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,8 +44,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
         
+        logoButton = UIButton(type: UIButtonType.custom)
+        logoButton.setImage(UIImage(named: "yelpIcon"), for: .normal)
+        logoButton.sizeToFit()
+        
+        barButtonItem = UIBarButtonItem(customView: logoButton)
+        self.navigationItem.leftBarButtonItem = barButtonItem
     }
 
+    // Mark: – TableViewControllerDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if searchActive {
@@ -75,6 +85,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         filtersViewController.delegate = self
     }
     
+    // Mark: – FiltersViewControllerDelegate
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
         let categories = filters["categories"] as? [String]
@@ -89,8 +100,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    // Mark: – UISearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         searchedBusinesses = businesses.filter({ (business) -> Bool in
             var temp = NSString()
             
@@ -110,7 +121,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         self.tableView.reloadData()
     }
-    
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchActive = true;
