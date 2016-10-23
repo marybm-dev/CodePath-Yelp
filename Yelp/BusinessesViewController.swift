@@ -8,12 +8,14 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate {
+    
     @IBOutlet weak var tableView: UITableView!
     
     var businesses = [Business]()
     var searchBar: UISearchBar!
     
+    var isMoreDataLoading = false
     var searchActive = false
     var searchedBusinesses = [Business]()
     
@@ -41,20 +43,40 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         navigationItem.leftBarButtonItem = barButtonItem
         
         // fetchData
-        Business.searchWithTerm(term: "Thai", offset: businesses.count, completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
-            self.businesses = businesses!
-            self.tableView.reloadData()
-            
-            if let businesses = businesses {
-                for business in businesses {
-                    print(business.name!)
-                    print(business.address!)
-                }
-            }
-        })
+        fetchData()
+        
     }
 
+    // app logic
+    func fetchData() {
+        print("old count: \(businesses.count)")
+        Business.searchWithTerm(term: "Restaurant", offset: businesses.count, completion: { (businesses: [Business]?, error: Error?) -> Void in
+            
+            self.businesses.append(contentsOf: businesses!)
+            self.tableView.reloadData()
+            self.isMoreDataLoading = false
+            
+        })
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if !isMoreDataLoading {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                isMoreDataLoading = true
+                
+                // ... Code to load more results ...
+                self.fetchData()
+            }
+        }
+    }
+    
     // Mark: – TableViewControllerDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
