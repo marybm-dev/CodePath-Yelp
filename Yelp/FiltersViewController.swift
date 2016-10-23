@@ -19,7 +19,7 @@ enum RadiusFilter: Int {
     @objc optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, SortCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
@@ -31,6 +31,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var distnacesKeys: [String]!
     
     var sorts: [String]!
+    var selectedSort = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,7 +129,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             
         }
         else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "sortCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "sortCell", for: indexPath) as! SortCell
+            
+            cell.delegate = self
             return cell
             
         }
@@ -136,19 +139,27 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as! SwitchCell
             
             cell.switchLabel.text = categories[indexPath.row]["name"]
-            cell.delegate = self
             cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
             
+            cell.delegate = self
             return cell
         }
         
     }
     
-    // Mark: – SwitchCellDelegate
+    
+    // Mark: – SortCellDelegate
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
         
         switchStates[indexPath.row] = value
+    }
+    
+    // Mark: – SwitchCellDelegate
+    func sortCell(sortCell: SortCell, didChangeValue value: Int) {
+//        let indexPath = tableView.indexPath(for: sortCell)!
+        
+        selectedSort = value
     }
     
     func yelpDistances() -> [String:RadiusFilter] {

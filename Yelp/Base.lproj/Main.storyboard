@@ -196,27 +196,33 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sortCell" id="c7v-5e-hdL">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sortCell" id="c7v-5e-hdL" customClass="SortCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="208" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c7v-5e-hdL" id="L5q-NW-oVt">
                                             <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dsc-RW-ShR"/>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vO4-rH-Syf">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="djO-Ps-HMA">
+                                                    <color key="backgroundColor" red="0.92146831750869751" green="0.92162626981735229" blue="0.92145836353302002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <segments>
+                                                        <segment title="Best Match"/>
+                                                        <segment title="Distance"/>
+                                                        <segment title="Highest Rated"/>
+                                                    </segments>
+                                                    <color key="tintColor" red="0.86021274328231812" green="0.23743578791618347" blue="0.14154785871505737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="dsc-RW-ShR" secondAttribute="trailing" constant="18" id="6dE-6p-UJJ"/>
-                                                <constraint firstItem="dsc-RW-ShR" firstAttribute="centerY" secondItem="L5q-NW-oVt" secondAttribute="centerY" id="OM8-oN-d5D"/>
-                                                <constraint firstItem="vO4-rH-Syf" firstAttribute="centerY" secondItem="L5q-NW-oVt" secondAttribute="centerY" id="nIr-e8-rgt"/>
-                                                <constraint firstItem="vO4-rH-Syf" firstAttribute="leading" secondItem="L5q-NW-oVt" secondAttribute="leadingMargin" constant="8" id="rzN-1Z-Ybg"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="djO-Ps-HMA" secondAttribute="trailing" constant="17" id="5Hf-bj-xXT"/>
+                                                <constraint firstItem="djO-Ps-HMA" firstAttribute="centerX" secondItem="L5q-NW-oVt" secondAttribute="centerX" id="Bed-TQ-Kuv"/>
+                                                <constraint firstItem="djO-Ps-HMA" firstAttribute="leading" secondItem="L5q-NW-oVt" secondAttribute="leading" constant="18" id="Kdk-sW-VDx"/>
+                                                <constraint firstItem="djO-Ps-HMA" firstAttribute="centerY" secondItem="L5q-NW-oVt" secondAttribute="centerY" id="p3u-Gp-gAj"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="sortSegmentControl" destination="djO-Ps-HMA" id="oEI-8Z-TSb"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="pod-Hd-NMd" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="252" width="375" height="44"/>
@@ -277,7 +283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ARI-JI-cAV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4068" y="358"/>
+            <point key="canvasLocation" x="4068" y="357.57121439280365"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qaS-WX-ArE">
