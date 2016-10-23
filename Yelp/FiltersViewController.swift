@@ -30,10 +30,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var distances: [String:RadiusFilter]!
     var distnacesKeys: [String]!
     
-    var sorts: [String]!
-    var selectedSort = Int()
+    var selectedSort = 0
     
-    var isDealSelected = Bool()
+    var isDealSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +42,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         categories = yelpCategories()
         distances = yelpDistances()
         distnacesKeys = Array(self.distances.keys)
-        
-        sorts = ["Best Match, Distance, Rating"]
     }
     
     @IBAction func onCancelButton(_ sender: AnyObject) {
@@ -56,6 +53,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         var filters = [String:AnyObject]()
         
+        // category filters
         var selectedCategories = [String]()
         for (row,isSelected) in switchStates {
             if isSelected {
@@ -65,6 +63,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories as AnyObject?
         }
+        
+        // deal filter
+        filters["deals"] = isDealSelected as AnyObject?
+        
+        // sort
+        filters["sort"] = selectedSort as AnyObject?
         
         delegate?.filtersViewController!(filtersViewController: self, didUpdateFilters: filters)
     }

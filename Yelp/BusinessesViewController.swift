@@ -49,15 +49,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 
     // app logic
     func fetchData() {
-        print("old count: \(businesses.count)")
-        Business.searchWithTerm(term: "Restaurant", offset: businesses.count, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Restaurants", offset: businesses.count, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses.append(contentsOf: businesses!)
             self.tableView.reloadData()
             self.isMoreDataLoading = false
             
         })
-        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -114,8 +112,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
         let categories = filters["categories"] as? [String]
+        let sort = filters["sort"] as? Int
+        let deals = filters["deals"] as? Bool
         
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, offset: 0, completion: {
+        Business.searchWithTerm(term: "Restaurants", sort: sort.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: deals, offset: 0, completion: {
             (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses!
