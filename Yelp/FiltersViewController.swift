@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum RadiusFilter: Int {
+    case miles1  = 1609
+    case miles5  = 8046
+    case miles10 = 16093
+    case miles20 = 32186
+}
+
 @objc protocol FiltersViewControllerDelegate {
     @objc optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
@@ -20,12 +27,17 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
     
+    var distances: [String:RadiusFilter]!
+    var distnacesKeys: [String]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.backgroundColor = UIColor.appleLightestGray()
         
         categories = yelpCategories()
+        distances = yelpDistances()
+        distnacesKeys = Array(self.distances.keys)
     }
     
     @IBAction func onCancelButton(_ sender: AnyObject) {
@@ -115,6 +127,14 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let indexPath = tableView.indexPath(for: switchCell)!
         
         switchStates[indexPath.row] = value
+    }
+    
+    func yelpDistances() -> [String:RadiusFilter] {
+        return  [" 1 miles": .miles1,
+                 " 5 miles": .miles5,
+                 "10 miles": .miles10,
+                 "20 miles": .miles20
+                ]
     }
     
     func yelpCategories() -> [[String:String]] {
