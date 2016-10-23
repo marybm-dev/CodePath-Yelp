@@ -11,7 +11,7 @@ import UIKit
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
     
-    var businesses: [Business]!
+    var businesses = [Business]()
     var searchBar: UISearchBar!
     
     var searchActive = false
@@ -41,9 +41,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         navigationItem.leftBarButtonItem = barButtonItem
         
         // fetchData
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Thai", offset: businesses.count, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
-            self.businesses = businesses
+            self.businesses = businesses!
             self.tableView.reloadData()
             
             if let businesses = businesses {
@@ -61,8 +61,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         if searchActive {
             return searchedBusinesses.count
         }
-        else if !searchActive && businesses != nil {
-            return businesses!.count
+        else if !searchActive {
+            return businesses.count
         }
 
         return 0
@@ -93,10 +93,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let categories = filters["categories"] as? [String]
         
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, completion: {
+        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, offset: 0, completion: {
             (businesses: [Business]?, error: Error?) -> Void in
             
-            self.businesses = businesses
+            self.businesses = businesses!
             self.tableView.reloadData()
             
         })
