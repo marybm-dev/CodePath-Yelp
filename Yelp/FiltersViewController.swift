@@ -19,7 +19,7 @@ enum RadiusFilter: Int {
     @objc optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, SortCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, SortCellDelegate, DealCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
@@ -32,6 +32,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var sorts: [String]!
     var selectedSort = Int()
+    
+    var isDealSelected = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,7 +121,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "dealCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "dealCell", for: indexPath) as! DealCell
+            
+            cell.delegate = self
             return cell
             
         }
@@ -147,19 +151,21 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-    
-    // Mark: – SortCellDelegate
+    // Mark: – SwitchCellDelegate
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
         
         switchStates[indexPath.row] = value
     }
     
-    // Mark: – SwitchCellDelegate
+    // Mark: – SortCellDelegate
     func sortCell(sortCell: SortCell, didChangeValue value: Int) {
-//        let indexPath = tableView.indexPath(for: sortCell)!
-        
         selectedSort = value
+    }
+    
+    // Mark: – DealCellDelegate
+    func dealCell(dealCell: DealCell, didChangeValue value: Bool) {
+        isDealSelected = value
     }
     
     func yelpDistances() -> [String:RadiusFilter] {

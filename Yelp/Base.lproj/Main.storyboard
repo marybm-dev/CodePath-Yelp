@@ -152,7 +152,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="WS2-Bt-Vuv">
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dealCell" id="ber-5F-qXN">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dealCell" id="ber-5F-qXN" customClass="DealCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="120" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ber-5F-qXN" id="p3f-wL-GbA">
@@ -173,6 +173,9 @@
                                                 <constraint firstItem="bmX-TN-bzX" firstAttribute="centerY" secondItem="p3f-wL-GbA" secondAttribute="centerY" id="UXe-dg-ZbP"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="onOffSwitch" destination="bmX-TN-bzX" id="nQK-sE-ZFu"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="distanceCell" id="7SN-Yc-L9N">
                                         <rect key="frame" x="0.0" y="164" width="375" height="44"/>

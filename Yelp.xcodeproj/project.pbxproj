@@ -19,6 +19,7 @@
 		47848697133B87663A122E3D /* Pods_YelpTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1000F3975EB43318C1D4FA /* Pods_YelpTests.framework */; };
 		5E301DC41DBD472F00B05AC1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E301DC31DBD472F00B05AC1 /* Extensions.swift */; };
 		5E301DC61DBD52EE00B05AC1 /* SortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E301DC51DBD52EE00B05AC1 /* SortCell.swift */; };
+		5E301DC81DBD571900B05AC1 /* DealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E301DC71DBD571900B05AC1 /* DealCell.swift */; };
 		5E3707541DBBE3240081A30E /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3707531DBBE3240081A30E /* BusinessCell.swift */; };
 		5ED03C211DBBFE2000A1ECDE /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED03C201DBBFE2000A1ECDE /* SwitchCell.swift */; };
 		5ED03C231DBBFE8000A1ECDE /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED03C221DBBFE8000A1ECDE /* FiltersViewController.swift */; };
@@ -51,6 +52,7 @@
 		5871D66103F8E8D78915F798 /* Pods-YelpTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YelpTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YelpTests/Pods-YelpTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5E301DC31DBD472F00B05AC1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5E301DC51DBD52EE00B05AC1 /* SortCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortCell.swift; sourceTree = "<group>"; };
+		5E301DC71DBD571900B05AC1 /* DealCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealCell.swift; sourceTree = "<group>"; };
 		5E3707531DBBE3240081A30E /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 		5ED03C201DBBFE2000A1ECDE /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		5ED03C221DBBFE8000A1ECDE /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				5E3707531DBBE3240081A30E /* BusinessCell.swift */,
 				5ED03C201DBBFE2000A1ECDE /* SwitchCell.swift */,
 				5E301DC51DBD52EE00B05AC1 /* SortCell.swift */,
+				5E301DC71DBD571900B05AC1 /* DealCell.swift */,
 			);
 			name = "TableView Cells";
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				5E3707541DBBE3240081A30E /* BusinessCell.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				5ED03C231DBBFE8000A1ECDE /* FiltersViewController.swift in Sources */,
+				5E301DC81DBD571900B05AC1 /* DealCell.swift in Sources */,
 				5E301DC41DBD472F00B05AC1 /* Extensions.swift in Sources */,
 				5E301DC61DBD52EE00B05AC1 /* SortCell.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
