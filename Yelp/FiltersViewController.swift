@@ -23,6 +23,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.backgroundColor = UIColor.appleLightestGray()
+        
         categories = yelpCategories()
     }
     
@@ -48,21 +50,67 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         delegate?.filtersViewController!(filtersViewController: self, didUpdateFilters: filters)
     }
 
+    // Mark: – UITableViewDataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        if section == 3 {
+            return categories.count
+        }
+        
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return nil
+        }
+        else if section == 1 {
+            return "Distance"
+        }
+        else if section == 2 {
+            return "Sort By"
+        }
+        else if section == 3 {
+            return "Category"
+        }
+        else {
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as! SwitchCell
         
-        cell.switchLabel.text = categories[indexPath.row]["name"]
-        cell.delegate = self
-
-        cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "dealCell", for: indexPath)
+            return cell
+            
+        }
+        else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "distanceCell", for: indexPath)
+            return cell
+            
+        }
+        else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "sortCell", for: indexPath)
+            return cell
+            
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as! SwitchCell
+            
+            cell.switchLabel.text = categories[indexPath.row]["name"]
+            cell.delegate = self
+            cell.onSwitch.isOn = switchStates[indexPath.row] ?? false
+            
+            return cell
+        }
         
-        return cell
     }
     
+    // Mark: – SwitchCellDelegate
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
         
