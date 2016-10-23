@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KVNProgress
 
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate {
     
@@ -49,12 +50,18 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 
     // app logic
     func fetchData() {
+        
+        // display activity indicator
+        KVNProgress.show()
+        
         Business.searchWithTerm(term: "Restaurants", offset: businesses.count, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses.append(contentsOf: businesses!)
             self.tableView.reloadData()
             self.isMoreDataLoading = false
             
+            // hide activity indicator
+            KVNProgress.dismiss()
         })
     }
     
@@ -111,18 +118,22 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     // Mark: – FiltersViewControllerDelegate
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
+        // display activity indicator
+        KVNProgress.show()
+        
         let categories = filters["categories"] as? [String]
         let sort = filters["sort"] as? Int
         let deals = filters["deals"] as? Bool
-        
+
         Business.searchWithTerm(term: "Restaurants", sort: sort.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: deals, offset: 0, completion: {
             (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses!
             self.tableView.reloadData()
             
+            // hide activity indicator
+            KVNProgress.dismiss()
         })
-        
     }
     
     // Mark: – UISearchBarDelegate
