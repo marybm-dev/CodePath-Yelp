@@ -23,9 +23,24 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // setup tableView
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
+
+        // setup searchBar
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
         
+        // setup yelp logo
+        logoButton = UIButton(type: UIButtonType.custom)
+        logoButton.setImage(UIImage(named: "yelpIcon"), for: .normal)
+        logoButton.sizeToFit()
+        barButtonItem = UIBarButtonItem(customView: logoButton)
+        navigationItem.leftBarButtonItem = barButtonItem
+        
+        // fetchData
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
@@ -38,18 +53,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
         })
-
-        searchBar = UISearchBar()
-        searchBar.delegate = self
-        searchBar.sizeToFit()
-        navigationItem.titleView = searchBar
-        
-        logoButton = UIButton(type: UIButtonType.custom)
-        logoButton.setImage(UIImage(named: "yelpIcon"), for: .normal)
-        logoButton.sizeToFit()
-        
-        barButtonItem = UIBarButtonItem(customView: logoButton)
-        self.navigationItem.leftBarButtonItem = barButtonItem
     }
 
     // Mark: – TableViewControllerDataSource
