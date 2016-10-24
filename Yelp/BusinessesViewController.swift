@@ -8,10 +8,12 @@
 
 import UIKit
 import KVNProgress
+import MapKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate, MKMapViewDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var tableView: UITableView!
+    var mapView: MKMapView!
     
     var businesses = [Business]()
     var searchBar: UISearchBar!
@@ -19,33 +21,44 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var isMoreDataLoading = false
     var searchActive = false
     var searchedBusinesses = [Business]()
-    
-    var logoButton: UIButton!
-    var barButtonItem: UIBarButtonItem!
-    
+
+    let segmentControl = UISegmentedControl()
+    var segmentBarItem: UIBarButtonItem!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // setup mapView
+        mapView = MKMapView()
+        mapView.mapType = .standard
+        mapView.frame = tableView.frame
+        mapView.delegate = self
+        view.addSubview(mapView)
+        let centerLocation = CLLocation(latitude: 37.7833, longitude: -122.4167)
+        goTo(location: centerLocation)
+
         // setup tableView
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
-
+        view.bringSubview(toFront: tableView)
+        
         // setup searchBar
         searchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
         
-        // setup yelp logo
-        logoButton = UIButton(type: UIButtonType.custom)
-        logoButton.setImage(UIImage(named: "yelpIcon"), for: .normal)
-        logoButton.sizeToFit()
-        barButtonItem = UIBarButtonItem(customView: logoButton)
-        navigationItem.leftBarButtonItem = barButtonItem
+        // setup segment control for list/map view
+        segmentControl.frame = CGRect(x: 0, y: 0, width: 90, height: 30.0)
+        segmentControl.insertSegment(with: UIImage(named: "list"), at: 0, animated: true)
+        segmentControl.insertSegment(with: UIImage(named: "map"), at: 1, animated: true)
+        segmentControl.selectedSegmentIndex = 0
+        segmentControl.addTarget(self, action: #selector(segmentControlAction(segmentControl:)), for: .valueChanged)
+        segmentBarItem = UIBarButtonItem(customView: segmentControl)
+        self.navigationItem.leftBarButtonItem = segmentBarItem
         
         // fetchData
         fetchData()
-        
     }
 
     // app logic
@@ -65,6 +78,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    func goTo(location: CLLocation) {
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let region = MKCoordinateRegionMake(location.coordinate, span)
+        mapView.setRegion(region, animated: false)
+    }
+    
+    // Mark: - ScrollView
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if !isMoreDataLoading {
@@ -80,6 +100,24 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.fetchData()
             }
         }
+    }
+
+    // Mark: - Segment Control
+    func segmentControlAction(segmentControl: UISegmentedControl) {
+        
+        var toView = UIView()
+        var fromView = UIView()
+        
+        if segmentControl.selectedSegmentIndex == 0 {
+            fromView = self.mapView
+            toView = self.tableView
+        }
+        else {
+            fromView = self.tableView
+            toView = self.mapView
+        }
+        
+        UIView.transition(from: fromView, to: toView, duration: 0.25, options: UIViewAnimationOptions.showHideTransitionViews, completion: nil)
     }
     
     // Mark: – TableViewControllerDataSource
