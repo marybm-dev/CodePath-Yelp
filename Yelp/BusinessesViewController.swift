@@ -84,6 +84,28 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         mapView.setRegion(region, animated: false)
     }
     
+    // Mark: – FiltersViewControllerDelegate
+    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
+        
+        // display activity indicator
+        KVNProgress.show()
+        
+        let categories = filters["categories"] as? [String]
+        let sort = filters["sort"] as? Int
+        let deals = filters["deals"] as? Bool
+        let distance = filters["distance"] as? Int
+        
+        Business.searchWithTerm(term: "Restaurants", sort: sort.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: deals, radius: distance, offset: 0, completion: {
+            (businesses: [Business]?, error: Error?) -> Void in
+            
+            self.businesses = businesses!
+            self.tableView.reloadData()
+            
+            // hide activity indicator
+            KVNProgress.dismiss()
+        })
+    }
+    
     // Mark: - ScrollView
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -151,28 +173,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let filtersViewController = navigationController.topViewController as! FiltersViewController
         
         filtersViewController.delegate = self
-    }
-    
-    // Mark: – FiltersViewControllerDelegate
-    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        
-        // display activity indicator
-        KVNProgress.show()
-        
-        let categories = filters["categories"] as? [String]
-        let sort = filters["sort"] as? Int
-        let deals = filters["deals"] as? Bool
-        let distance = filters["distance"] as? Int
-
-        Business.searchWithTerm(term: "Restaurants", sort: sort.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: deals, radius: distance, offset: 0, completion: {
-            (businesses: [Business]?, error: Error?) -> Void in
-            
-            self.businesses = businesses!
-            self.tableView.reloadData()
-            
-            // hide activity indicator
-            KVNProgress.dismiss()
-        })
     }
     
     // Mark: – UISearchBarDelegate
