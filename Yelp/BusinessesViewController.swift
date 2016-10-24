@@ -124,8 +124,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let categories = filters["categories"] as? [String]
         let sort = filters["sort"] as? Int
         let deals = filters["deals"] as? Bool
+        let distance = filters["distance"] as? Int
 
-        Business.searchWithTerm(term: "Restaurants", sort: sort.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: deals, offset: 0, completion: {
+        Business.searchWithTerm(term: "Restaurants", sort: sort.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: deals, radius: distance, offset: 0, completion: {
             (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses!

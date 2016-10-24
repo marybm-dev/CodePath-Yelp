@@ -9,10 +9,10 @@
 import UIKit
 
 enum RadiusFilter: Int {
+    case blocks2 = 160
+    case blocks6 = 482
     case miles1  = 1609
     case miles5  = 8046
-    case miles10 = 16093
-    case miles20 = 32186
 }
 
 @objc protocol FiltersViewControllerDelegate {
@@ -31,8 +31,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var distnacesKeys: [String]!
     
     var selectedSort = 0
-    
     var isDealSelected = false
+    
+    var selectedDistance = "Best Match"
+    var selectedDistanceIndex = 0
+    var shouldDisplayAllDistances = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +73,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         // sort
         filters["sort"] = selectedSort as AnyObject?
         
+        // distance
+        filters["distance"] = distances[selectedDistance]?.rawValue as AnyObject?
+        
         delegate?.filtersViewController!(filtersViewController: self, didUpdateFilters: filters)
     }
 
@@ -79,7 +85,17 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 3 {
+        
+        if section == 0 {
+            return 1
+        }
+        else if section == 1 {
+            return shouldDisplayAllDistances ? (distances.count + 1) : 1
+        }
+        else if section == 2 {
+            return 1
+        }
+        else if section == 3 {
             return categories.count
         }
         
@@ -132,7 +148,27 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             
         }
         else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "distanceCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "distanceCell", for: indexPath) as! DistanceCell
+            
+            // determine if we need to display the checked image
+            let checkedOrNil = selectedDistanceIndex == indexPath.row ? UIImage(named: "checked") : nil
+            cell.checkedImageView.image = checkedOrNil
+            
+            // determine which label to display
+            var text = String()
+            if indexPath.row == 0 {
+                text = selectedDistance
+                
+                // if distances are collapsed, show the checked circle in the first row
+                if !shouldDisplayAllDistances {
+                    cell.checkedImageView.image = UIImage(named: "checked")
+                }
+            }
+            else {
+                text = distnacesKeys[indexPath.row-1]
+            }
+            cell.distanceLabel.text = text
+            
             return cell
             
         }
@@ -155,6 +191,37 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            
+            if indexPath.row == 0 {
+
+                shouldDisplayAllDistances = !shouldDisplayAllDistances
+                selectedDistance = "Best Match"
+                
+                if !shouldDisplayAllDistances {
+                    selectedDistanceIndex = indexPath.row
+                }
+                
+                tableView.reloadData()
+                return
+            }
+            
+            if shouldDisplayAllDistances {
+                // updated the selected distance
+                let cell = tableView.cellForRow(at: indexPath) as! DistanceCell
+                cell.checkedImageView.image = UIImage(named: "checked")
+                
+                selectedDistanceIndex = indexPath.row
+                selectedDistance = cell.distanceLabel.text!
+            }
+            
+            // reload the tableView
+            shouldDisplayAllDistances = !shouldDisplayAllDistances
+            tableView.reloadData()
+        }
+    }
+    
     // Mark: – SwitchCellDelegate
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)!
@@ -173,10 +240,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func yelpDistances() -> [String:RadiusFilter] {
-        return  [" 1 miles": .miles1,
+        return  [
+                 " 2 blocks" : .blocks2,
+                 " 6 blocks": .blocks6,
+                 " 1 mile" : .miles1,
                  " 5 miles": .miles5,
-                 "10 miles": .miles10,
-                 "20 miles": .miles20
                 ]
     }
     
