@@ -11,6 +11,7 @@ import MapKit
 
 class Business: NSObject, MKAnnotation {
     let title: String?
+    let subtitle: String?
     let address: String?
     let imageURL: URL?
     let categories: String?
@@ -56,6 +57,7 @@ class Business: NSObject, MKAnnotation {
             longitude = 0
         }
         self.address = address
+        self.subtitle = address
         self.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(latitude), CLLocationDegrees(longitude))
         
         let categoriesArray = dictionary["categories"] as? [[String]]

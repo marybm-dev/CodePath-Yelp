@@ -116,6 +116,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    // Mark: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if let annotation = annotation as? Business {
@@ -134,6 +135,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return nil
     
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        // do something when the user taps the info icon - take them to Detail view (still TODO)
+        
     }
     
     // Mark: - ScrollView
