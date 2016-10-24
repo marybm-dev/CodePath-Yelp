@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class Business: NSObject, MKAnnotation {
-    let name: String?
+    let title: String?
     let address: String?
     let imageURL: URL?
     let categories: String?
@@ -20,7 +20,7 @@ class Business: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     
     init(dictionary: NSDictionary) {
-        name = dictionary["name"] as? String
+        title = dictionary["name"] as? String
         
         let imageURLString = dictionary["image_url"] as? String
         if imageURLString != nil {

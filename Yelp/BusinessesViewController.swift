@@ -34,9 +34,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         mapView.frame = tableView.frame
         mapView.delegate = self
         view.addSubview(mapView)
-        let centerLocation = CLLocation(latitude: 37.7833, longitude: -122.4167)
-        goTo(location: centerLocation)
-
+        
         // setup tableView
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
@@ -60,6 +58,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         // fetchData
         fetchData()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let centerLocation = CLLocation(latitude: 37.7838, longitude: -122.3875)
+        goTo(location: centerLocation)
+    }
 
     // app logic
     func fetchData() {
@@ -73,15 +76,18 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             self.tableView.reloadData()
             self.isMoreDataLoading = false
             
+            self.mapView.addAnnotations(businesses!)
+            
             // hide activity indicator
             KVNProgress.dismiss()
         })
     }
     
     func goTo(location: CLLocation) {
-        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let span = MKCoordinateSpanMake(0.025, 0.025)
         let region = MKCoordinateRegionMake(location.coordinate, span)
-        mapView.setRegion(region, animated: false)
+        let regionThatFits = mapView.regionThatFits(region)
+        mapView.setRegion(regionThatFits, animated: true)
     }
     
     // Mark: – FiltersViewControllerDelegate
@@ -98,12 +104,36 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         Business.searchWithTerm(term: "Restaurants", sort: sort.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: deals, radius: distance, offset: 0, completion: {
             (businesses: [Business]?, error: Error?) -> Void in
             
+            // remove businesses and replace with new data
+            self.mapView.removeAnnotations(self.businesses)
+            self.mapView.addAnnotations(businesses!)
+            
             self.businesses = businesses!
             self.tableView.reloadData()
-            
+
             // hide activity indicator
             KVNProgress.dismiss()
         })
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if let annotation = annotation as? Business {
+            let identifier = "pin"
+            var view: MKPinAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+                dequeuedView.annotation = annotation
+                view = dequeuedView
+            } else {
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = true
+                view.calloutOffset = CGPoint(x: -5, y: 5)
+                view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
+            }
+            return view
+        }
+        return nil
+    
     }
     
     // Mark: - ScrollView
@@ -180,7 +210,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         searchedBusinesses = businesses.filter({ (business) -> Bool in
             var temp = NSString()
             
-            if let name = business.name {
+            if let name = business.title {
                 temp = name as NSString
                 
             }
@@ -190,9 +220,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if searchedBusinesses.count == 0 {
             searchActive = false
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            self.mapView.addAnnotations(self.businesses)
         }
         else {
             searchActive = true
+            let annotationsToRemove = self.mapView.annotations.filter { !searchedBusinesses.contains($0 as! Business) }
+            self.mapView.removeAnnotations(annotationsToRemove)
         }
         self.tableView.reloadData()
     }
