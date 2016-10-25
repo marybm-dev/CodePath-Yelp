@@ -415,14 +415,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OgX-Md-r2Z">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pUV-5L-oYc" secondAttribute="bottom" constant="2" id="9fi-u8-t5A"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OgX-Md-r2Z" secondAttribute="bottom" constant="4" id="HEF-eN-pKc"/>
+                                                <constraint firstAttribute="bottom" secondItem="OgX-Md-r2Z" secondAttribute="bottom" id="HEF-eN-pKc"/>
                                                 <constraint firstItem="pUV-5L-oYc" firstAttribute="leading" secondItem="iqj-a0-HDp" secondAttribute="leading" constant="15" id="SiM-3K-HjB"/>
                                                 <constraint firstItem="mZN-1Z-1qB" firstAttribute="top" secondItem="iqj-a0-HDp" secondAttribute="top" constant="10" id="SoJ-hX-ZKb"/>
                                                 <constraint firstItem="fOg-dz-JEY" firstAttribute="leading" secondItem="iqj-a0-HDp" secondAttribute="leading" constant="15" id="UlQ-d9-dNS"/>
