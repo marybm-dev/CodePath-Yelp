@@ -18,7 +18,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     
     var business: Business!
-    var test: Business!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,5 +28,17 @@ class DetailViewController: UIViewController {
         addressLabel.text = business.address!
         categoriesLabel.text = business.categories!
         reviewsCountLabel.text = "\(business.reviewCount!) Reviews"
+        
+        getReviews()
+    }
+    
+    func getReviews() {
+        Business.businessReviews(business.id!, completion: {
+            (reviews: [Review]?, error: Error?) -> Void in
+            
+            self.business.reviews = reviews
+            
+            print(reviews)
+        })
     }
 }

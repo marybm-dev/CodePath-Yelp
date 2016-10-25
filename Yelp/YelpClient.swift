@@ -86,4 +86,27 @@ class YelpClient: BDBOAuth1RequestOperationManager {
                             completion(nil, error)
                         })!
     }
+    
+    func businessReviews(_ id: String, completion: @escaping ([Review]?, Error?) -> Void) -> AFHTTPRequestOperation {
+        // For additional parameters, see http://www.yelp.com/developers/documentation/v2/business
+        
+        let parameters: [String : AnyObject] = ["id": id as AnyObject]
+        print(parameters)
+        
+        return self.get("business/\((id as AnyObject))", parameters: nil,
+                        success: { (operation: AFHTTPRequestOperation, response: Any) -> Void in
+                            if let response = response as? [String: Any]{
+                                print("response: \(response)")
+                                
+                                let dictionaries = response["reviews"] as? [NSDictionary]
+                                if dictionaries != nil {
+                                    completion(Review.reviews(array: dictionaries!), nil)
+                                }
+                            }
+            },
+                        failure: { (operation: AFHTTPRequestOperation?, error: Error) -> Void in
+                            completion(nil, error)
+                            print("error \(error)")
+        })!
+    }
 }
