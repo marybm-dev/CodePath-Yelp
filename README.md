@@ -28,3 +28,4 @@ In addition I have added the following:
 * UITableView in DetailViewController to showcase the reviews
 * Added extension for UIColor to use hex
 * Added launchscreen
+![Video Walkthrough](Yelp.gif)
