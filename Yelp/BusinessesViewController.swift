@@ -138,7 +138,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        // do something when the user taps the info icon - take them to Detail view (still TODO)
+        
+        let annotation = view.annotation as? Business
+        
         
     }
     
@@ -205,10 +207,20 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navigationController = segue.destination as! UINavigationController
-        let filtersViewController = navigationController.topViewController as! FiltersViewController
         
-        filtersViewController.delegate = self
+        if segue.identifier == "showFilters" {
+            let navigationController = segue.destination as! UINavigationController
+            let filtersViewController = navigationController.topViewController as! FiltersViewController
+            
+            filtersViewController.delegate = self
+        }
+        else if segue.identifier == "showBusinessDetail" {
+            let detailViewController = segue.destination as! DetailViewController
+
+            let cell = sender as! BusinessCell
+            let business = cell.business
+            detailViewController.business = business
+        }
     }
     
     // Mark: – UISearchBarDelegate
