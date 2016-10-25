@@ -385,18 +385,67 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JMo-JP-5x0"/>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="O6j-ER-twN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="95" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="O6j-ER-twN">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qzy-Js-Jd5">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="95" id="qzy-Js-Jd5" customClass="ReviewCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qzy-Js-Jd5" id="iqj-a0-HDp">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fOg-dz-JEY">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="cPz-AV-saF"/>
+                                                        <constraint firstAttribute="height" constant="60" id="hLx-gm-KHU"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pUV-5L-oYc">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mZN-1Z-1qB">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="5Wq-hh-TEM"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="hdb-OM-w4U"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="83" id="iST-1m-mgr"/>
+                                                        <constraint firstAttribute="width" constant="83" id="kzn-Co-vTO"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OgX-Md-r2Z">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pUV-5L-oYc" secondAttribute="bottom" constant="2" id="9fi-u8-t5A"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OgX-Md-r2Z" secondAttribute="bottom" constant="4" id="HEF-eN-pKc"/>
+                                                <constraint firstItem="pUV-5L-oYc" firstAttribute="leading" secondItem="iqj-a0-HDp" secondAttribute="leading" constant="15" id="SiM-3K-HjB"/>
+                                                <constraint firstItem="mZN-1Z-1qB" firstAttribute="top" secondItem="iqj-a0-HDp" secondAttribute="top" constant="10" id="SoJ-hX-ZKb"/>
+                                                <constraint firstItem="fOg-dz-JEY" firstAttribute="leading" secondItem="iqj-a0-HDp" secondAttribute="leading" constant="15" id="UlQ-d9-dNS"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OgX-Md-r2Z" secondAttribute="trailing" constant="8" id="YJj-dc-R2Y"/>
+                                                <constraint firstItem="fOg-dz-JEY" firstAttribute="top" secondItem="iqj-a0-HDp" secondAttribute="top" constant="10" id="onb-1B-j8D"/>
+                                                <constraint firstItem="OgX-Md-r2Z" firstAttribute="top" secondItem="mZN-1Z-1qB" secondAttribute="bottom" id="ouV-w3-QnZ"/>
+                                                <constraint firstItem="OgX-Md-r2Z" firstAttribute="leading" secondItem="fOg-dz-JEY" secondAttribute="trailing" constant="8" id="sac-SX-qkf"/>
+                                                <constraint firstItem="pUV-5L-oYc" firstAttribute="top" secondItem="fOg-dz-JEY" secondAttribute="bottom" id="vwk-Ig-bA8"/>
+                                                <constraint firstItem="mZN-1Z-1qB" firstAttribute="leading" secondItem="fOg-dz-JEY" secondAttribute="trailing" constant="8" id="z9M-lr-LEf"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="excerptLabel" destination="OgX-Md-r2Z" id="9lC-Kh-ZyY"/>
+                                            <outlet property="ratingImageView" destination="mZN-1Z-1qB" id="uHz-gw-Bhe"/>
+                                            <outlet property="userImageView" destination="fOg-dz-JEY" id="c6e-RT-8dU"/>
+                                            <outlet property="usernameLabel" destination="pUV-5L-oYc" id="53P-Fr-PWB"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="7Jf-Gl-Cxb" id="feA-dw-SBC"/>
+                                    <outlet property="delegate" destination="7Jf-Gl-Cxb" id="6kd-bt-nTb"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3532 Balboa St San Francisco, CA 94121" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdi-cO-k5C">
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -439,6 +488,7 @@
                         <outlet property="nameLabel" destination="Fnw-Oy-0QU" id="cGm-30-bBj"/>
                         <outlet property="ratingImageView" destination="rAo-CH-KNi" id="KCd-9K-poo"/>
                         <outlet property="reviewsCountLabel" destination="2pu-5m-cfe" id="1bj-Yx-wvx"/>
+                        <outlet property="tableView" destination="O6j-ER-twN" id="Olc-hF-ZU9"/>
                         <outlet property="thumbImageView" destination="JMo-JP-5x0" id="3U2-eG-8Tj"/>
                     </connections>
                 </viewController>

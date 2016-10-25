@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ratingImageView: UIImageView!
@@ -18,6 +18,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     
     var business: Business!
+    var reviews = [Review]()
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,9 @@ class DetailViewController: UIViewController {
         categoriesLabel.text = business.categories!
         reviewsCountLabel.text = "\(business.reviewCount!) Reviews"
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        
         getReviews()
     }
     
@@ -36,9 +42,30 @@ class DetailViewController: UIViewController {
         Business.businessReviews(business.id!, completion: {
             (reviews: [Review]?, error: Error?) -> Void in
             
-            self.business.reviews = reviews
+            if let businessReviews = reviews {
+                self.reviews = businessReviews
+                self.tableView.reloadData()
+            }
             
             print(reviews)
+            print(reviews?.count)
         })
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if self.reviews.count > 0 {
+            return self.reviews.count
+        }
+        
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as! ReviewCell
+        
+        cell.review = reviews[indexPath.row]
+        
+        return cell
     }
 }

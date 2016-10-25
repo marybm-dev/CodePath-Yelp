@@ -15,7 +15,7 @@ class Review: NSObject {
     let excerpt: String?
     
     init(dictionary: NSDictionary) {
-        let ratingImageURLString = dictionary["image_url"] as? String
+        let ratingImageURLString = dictionary["rating_image_url"] as? String
         if ratingImageURLString != nil {
             ratingImageURL = URL(string: ratingImageURLString!)!
         } else {
